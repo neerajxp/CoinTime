@@ -40,11 +40,14 @@ larger,  smaller
 	font-size:medium;
 	color:grey;
 	text-align:left;
+	color:green;
+	margin-left:10px;
 }
 .alertIcon
 {
  	width:35px;
  	height:35px;
+ 	margin-right:10px;
 }
 .removeIcon
 {
@@ -53,12 +56,15 @@ larger,  smaller
 }
 .table1
 {
-	background-color:red;
 	border:1px;	
-	margin-left:5px;
-	margin-right:5px;
+	margin-left:2px;
+	margin-right:2px;
 	margin-top:10px; 
 	padding:0px;
+}
+.seperatorcolor
+{
+	background-color:#ffffd7;
 }
 
 </style>
@@ -94,7 +100,10 @@ larger,  smaller
                     		 '</tr>'+                    		 
                     		'<tr>' + 
                     			'<td class="percentgrowth"  width="30%">' + c24hrchange + '</td>' + 
-                    			'<td class="priceincrease"  width="70%">' + "$" +cprice_usd  + '</td>' +
+                    			'<td class="priceincrease"  width="70%">' + "$" +cprice_usd  + '&nbsp;&nbsp</td>' +
+                    		 '</tr>'+
+                    		 '<tr>' + 
+                    			'<td width="100%" colspan="2" class="seperatorcolor"></td>' +                     			
                     		 '</tr>'+                    		                    		  
                     		 '</table>');                      		                     		                
                     });               
