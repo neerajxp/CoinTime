@@ -8,35 +8,56 @@
 	<!-- load theme file for your application -->
 	<link rel="stylesheet" href="css/style.css">
 </head>
+<style>
+/*absolute-size
+xx-small(1)	,x-small-> ,small-> 2,medium	 -> 3,large	-> 4,x-large	-> 5, xx-large -> 6 
+---relative size---relative to table of font-size
+larger,  smaller 
+*/
+
+.priceincrease
+{
+	font-size:x-large;
+	color:green;
+	text-align:right;
+}
+.pricedrop
+{
+	font-size:medium;
+	color:red;
+}
+.cointitle
+{
+	font-size:large;
+	color:white;
+	text-align:left;
+}
+.coinsymbol
+{
+	font-size:xx-large;
+}
+.percentgrowth
+{
+	font-size:medium;
+	color:grey;
+	text-align:left;
+}
+.alertIcon
+{
+ 	width:35px;
+ 	height:35px;
+}
+.removeIcon
+{
+ 	width:30px;
+ 	height:30px;
+}
+
+</style>
  <script src="./js/jquery-1.10.2.min.js"></script> 
-<script language="javascript" type="text/javascript">
-	function closeApp()
-    {
-    	tizen.application.getCurrentApplication().exit();
-    }
-    
-    function getExchangeRatesPage()
-    {
-    	window.location.href="GetCurrencyRates.html";
-    }
-    
-     function getCurrentRatesPage()
-    {
-    	window.location.href="CurrentCoinRates.html";
-    }
-      function converterPage()
-    {
-    	window.location.href="BtcConverter.html";
-    }  
-    
-    function IndexBasic()
-    {
-    	window.location.href="IndexBasic.html";
-    }
-    
+<script language="javascript" type="text/javascript">	    
     function getCurrentRates()
-    {
-    	
+    {   	
     	$("#txtWait").show();
         $.ajax({
             type: "GET",
@@ -48,9 +69,9 @@
                 contentType: "application/json";
                 $.each(myJsonObject, function(i, mobj){
                 	var flagGrowth="false";
-                    var crates = mobj.name;                    
+                    var cname = mobj.name;                    
                     var csymbol = mobj.symbol; 
-		    		var cprice_usd = mobj.price_usd; 
+		    		var cprice_usd = mobj.price_usd; 		    		
 		    		var c24hrchange=mobj.percent_change_24h + "%";
 		    		if(mobj.percent_change_24h >= 0)
 		    		{
@@ -59,17 +80,25 @@
 		    		}
 		     //$("#curtab").append('<tr><td><font color="#ffff00" align="center">' + csymbol + '<br>' + cprice_usd + '</font></td><td><font color="#ffff00">' + c24hrchange + '%</font></td></tr>');
                     $("#coinlist ul").append('<li>' + 
-                    		'<table border=0 style="font-size:10px;">'+ 
+                    		'<table border=1 style="font-size:xx-large;margin-left:0;margin-top:0; ">'+ 
                     		'<tr>' + 
-                    			'<td align="left">' + csymbol + '</td>' + 
-                    			'<td align="right">' + cprice_usd  + '</td>' +
-                    		 '</tr>'+
-                    		 '<tr>' +
-                    		 	'<td align="left">' + c24hrchange  + '</td>' +
-                    		 	'<td align="right"><image src="icons/alert5.png">&nbsp;&nbsp;<image src="icons/delete.png"></td>' +  
-                    		 '</tr>' + 
-                    		 '</table></li>');                    
+                    			'<td class="coinsymbol" width="90%">' + csymbol + '</td>' +
+                    			'<td align="right"  width="10%"><image src="icons/menu.png" class="alertIcon"></td>' +			
+                    		 '</tr>'+                    		 
+                    		'<tr>' + 
+                    			'<td class="percentgrowth"  width="30%">' + c24hrchange + '</td>' + 
+                    			'<td class="priceincrease"  width="70%">' + "$" +cprice_usd  + '</td>' +
+                    		 '</tr>'+                    		                    		  
+                    		 '</table></li>');                      		                     		                
                     });               
+                    
+                    //Add button
+                    $("#coinlist ul").append('<li>' + 
+                    		'<table border=1 width=100%">'+                     		
+                    		 '<tr>' + 
+                    			'<td colspan="2" align="center"><image src="icons/add_100px.png" align="center"></td>' +			
+                    		 '</tr>'+                    		  
+                    		 '</table></li>');       
             },
             complete:function(){
             	$("#txtWait").hide();
@@ -78,6 +107,30 @@
                 alert(xhr.responseText);
             }
         });
+    
+	    function closeApp()
+	    {
+	    	tizen.application.getCurrentApplication().exit();
+	    }
+	    
+	    function getExchangeRatesPage()
+	    {
+	    	window.location.href="GetCurrencyRates.html";
+	    }
+	    
+	     function getCurrentRatesPage()
+	    {
+	    	window.location.href="CurrentCoinRates.html";
+	    }
+	      function converterPage()
+	    {
+	    	window.location.href="BtcConverter.html";
+	    }  
+	    
+	    function IndexBasic()
+	    {
+	    	window.location.href="IndexBasic.html";
+	    }
     }
 </script>
 <body onload="getCurrentRates()">
@@ -85,8 +138,8 @@
 		<!-- <header class="ui-header">
 			<h2 class="ui-title">Coin Time</h2>
 		</header> -->
-		<div id="coinlist" class="ui-content">
-			<ul class="ui-listview">				
+		<div id="coinlist" class="ui-content" style="margin-left: -4px;">
+			<ul class="ui-listview"  style="margin-left: -4px;">				
 				
 			</ul>
 		</div>
