@@ -34,31 +34,70 @@
     	window.location.href="IndexBasic.html";
     }
     
+    function getCurrentRates()
+    {
+    	
+    	$("#txtWait").show();
+        $.ajax({
+            type: "GET",
+            url: "https://api.coinmarketcap.com/v1/ticker/?limit=10",
+            dataType: "json",
+            success: function (data) {
+                debugger;
+                var myJsonObject = data;
+                contentType: "application/json";
+                $.each(myJsonObject, function(i, mobj){
+                	var flagGrowth="false";
+                    var crates = mobj.name;                    
+                    var csymbol = mobj.symbol; 
+		    		var cprice_usd = mobj.price_usd; 
+		    		var c24hrchange=mobj.percent_change_24h + "%";
+		    		if(mobj.percent_change_24h >= 0)
+		    		{
+		    			c24hrchange="+" +c24hrchange
+		    			flagGrowth="true";
+		    		}
+		     //$("#curtab").append('<tr><td><font color="#ffff00" align="center">' + csymbol + '<br>' + cprice_usd + '</font></td><td><font color="#ffff00">' + c24hrchange + '%</font></td></tr>');
+                    $("#coinlist ul").append('<li>' + 
+                    		'<table border=0 style="font-size:10px;">'+ 
+                    		'<tr>' + 
+                    			'<td align="left">' + csymbol + '</td>' + 
+                    			'<td align="right">' + cprice_usd  + '</td>' +
+                    		 '</tr>'+
+                    		 '<tr>' +
+                    		 	'<td align="left">' + c24hrchange  + '</td>' +
+                    		 	'<td align="right"><image src="icons/alert5.png">&nbsp;&nbsp;<image src="icons/delete.png"></td>' +  
+                    		 '</tr>' + 
+                    		 '</table></li>');                    
+                    });               
+            },
+            complete:function(){
+            	$("#txtWait").hide();
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+    }
 </script>
-<body>
+<body onload="getCurrentRates()">
 	<div class="ui-page ui-page" id="main">
-		<header class="ui-header">
+		<!-- <header class="ui-header">
 			<h2 class="ui-title">Coin Time</h2>
-		</header>
-		<div class="ui-content">
-			<ul class="ui-listview">
-				<li onclick="getCurrentRatesPage()">Coin Rates</li>
-				<li onclick="getExchangeRatesPage()">Dollar Rates</li>
-				<li onclick="converterPage()">Converter</li>
-				<li onclick="IndexBasic()">BTC</li>
-				<li onclick="">ETH</li>
-				<li onclick="">LTC</li>
+		</header> -->
+		<div id="coinlist" class="ui-content">
+			<ul class="ui-listview">				
 				
 			</ul>
 		</div>
-		<footer class="ui-footer">
+			<!-- <footer class="ui-footer">
 			<table border="1">
 			<tr>
 			<td>Favorites</td>			
 			<td onclick="closeApp()"><font color="red">Close</font></td>
 			</tr>
 			</table>
-		</footer>
+		</footer> -->
 	</div>
 	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
 	<script type="text/javascript" src="js/circle-helper.js"></script>

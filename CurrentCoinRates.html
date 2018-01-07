@@ -15,7 +15,7 @@
     	$("#txtWait").show();
         $.ajax({
             type: "GET",
-            url: "https://api.coinmarketcap.com/v1/ticker",
+            url: "https://api.coinmarketcap.com/v1/ticker/?limit=5",
             dataType: "json",
             success: function (data) {
                 debugger;
