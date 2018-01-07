@@ -24,7 +24,6 @@ larger,  smaller
 .pricedrop
 {
 	font-size:medium;
-	color:red;
 }
 .cointitle
 {
@@ -51,6 +50,15 @@ larger,  smaller
 {
  	width:30px;
  	height:30px;
+}
+.table1
+{
+	background-color:red;
+	border:1px;	
+	margin-left:5px;
+	margin-right:5px;
+	margin-top:10px; 
+	padding:0px;
 }
 
 </style>
@@ -79,8 +87,7 @@ larger,  smaller
 		    			flagGrowth="true";
 		    		}
 		     //$("#curtab").append('<tr><td><font color="#ffff00" align="center">' + csymbol + '<br>' + cprice_usd + '</font></td><td><font color="#ffff00">' + c24hrchange + '%</font></td></tr>');
-                    $("#coinlist ul").append('<li>' + 
-                    		'<table border=1 style="font-size:xx-large;margin-left:0;margin-top:0; ">'+ 
+                    $("#coinlist ul").append('<table width="100%" class="table1">'+ 
                     		'<tr>' + 
                     			'<td class="coinsymbol" width="90%">' + csymbol + '</td>' +
                     			'<td align="right"  width="10%"><image src="icons/menu.png" class="alertIcon"></td>' +			
@@ -89,16 +96,15 @@ larger,  smaller
                     			'<td class="percentgrowth"  width="30%">' + c24hrchange + '</td>' + 
                     			'<td class="priceincrease"  width="70%">' + "$" +cprice_usd  + '</td>' +
                     		 '</tr>'+                    		                    		  
-                    		 '</table></li>');                      		                     		                
+                    		 '</table>');                      		                     		                
                     });               
                     
                     //Add button
-                    $("#coinlist ul").append('<li>' + 
-                    		'<table border=1 width=100%">'+                     		
+                    $("#coinlist ul").append('<table width="100%">'+                     		
                     		 '<tr>' + 
-                    			'<td colspan="2" align="center"><image src="icons/add_100px.png" align="center"></td>' +			
+                    			'<td colspan="2" align="center" margin-top="10px"><image src="icons/add_100px.png"></td>' +			
                     		 '</tr>'+                    		  
-                    		 '</table></li>');       
+                    		 '</table>');       
             },
             complete:function(){
             	$("#txtWait").hide();
@@ -138,19 +144,11 @@ larger,  smaller
 		<!-- <header class="ui-header">
 			<h2 class="ui-title">Coin Time</h2>
 		</header> -->
-		<div id="coinlist" class="ui-content" style="margin-left: -4px;">
-			<ul class="ui-listview"  style="margin-left: -4px;">				
+		<div id="coinlist" class="ui-content">
+			<ul id="coinlistUL" class="ui-listview">				
 				
 			</ul>
-		</div>
-			<!-- <footer class="ui-footer">
-			<table border="1">
-			<tr>
-			<td>Favorites</td>			
-			<td onclick="closeApp()"><font color="red">Close</font></td>
-			</tr>
-			</table>
-		</footer> -->
+		</div>			
 	</div>
 	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
 	<script type="text/javascript" src="js/circle-helper.js"></script>
