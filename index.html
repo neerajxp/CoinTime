@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<title>Circular UI</title>
+	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+	<!-- load theme file for your application -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+ <script src="./js/jquery-1.10.2.min.js"></script> 
+<script language="javascript" type="text/javascript">
+	function closeApp()
+    {
+    	tizen.application.getCurrentApplication().exit();
+    }
+    
+    function getExchangeRatesPage()
+    {
+    	window.location.href="GetCurrencyRates.html";
+    }
+    
+     function getCurrentRatesPage()
+    {
+    	window.location.href="CurrentCoinRates.html";
+    }
+      function converterPage()
+    {
+    	window.location.href="BtcConverter.html";
+    }  
+    
+    function IndexBasic()
+    {
+    	window.location.href="IndexBasic.html";
+    }
+    
+</script>
+<body>
+	<div class="ui-page ui-page" id="main">
+		<header class="ui-header">
+			<h2 class="ui-title">Coin Time</h2>
+		</header>
+		<div class="ui-content">
+			<ul class="ui-listview">
+				<li onclick="getCurrentRatesPage()">Coin Rates</li>
+				<li onclick="getExchangeRatesPage()">Dollar Rates</li>
+				<li onclick="converterPage()">Converter</li>
+				<li onclick="IndexBasic()">BTC</li>
+				<li onclick="">ETH</li>
+				<li onclick="">LTC</li>
+				
+			</ul>
+		</div>
+		<footer class="ui-footer">
+			<table border="1">
+			<tr>
+			<td>Favorites</td>			
+			<td onclick="closeApp()"><font color="red">Close</font></td>
+			</tr>
+			</table>
+		</footer>
+	</div>
+	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+	<script type="text/javascript" src="js/circle-helper.js"></script>
+	<script src="app.js"></script>
+	<script src="lowBatteryCheck.js"></script>
+</body>
+</html>
