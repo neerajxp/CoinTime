@@ -1,129 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width,user-scalable=no">
-	<title>Circular UI</title>
-	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
-	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
-	<!-- load theme file for your application -->
-	<link rel="stylesheet" href="css/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Wearable Extra UI - Section changer</title>
+    <link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+    <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/coinstyle.css">
 </head>
-<style>
-/*absolute-size
-xx-small(1)	,x-small-> ,small-> 2,medium	 -> 3,large	-> 4,x-large	-> 5, xx-large -> 6 
----relative size---relative to table of font-size
-larger,  smaller 
-*/
+<script src="./js/jquery-1.10.2.min.js"></script> 
+<script src="./js/coinmain.js"></script> 
+<script language="javascript" type="text/javascript">	
 
-.priceincrease
-{
-	font-size:x-large;
-	color:green;
-	text-align:left;
-}
-.pricedrop
-{
-	font-size:medium;
-}
-.cointitle
-{
-	font-size:large;
-	color:white;
-	text-align:left;
-}
-.coinsymbol
-{
-	font-size:xx-large;
-}
-.percentgrowth
-{
-	font-size:x-large;
-	color:grey;
-	text-align:right;
-	color:green;
-	margin-left:10px;
-}
-.alertIcon
-{
- 	width:35px;
- 	height:35px;
- 	margin-right:10px;
-}
-.removeIcon
-{
- 	width:30px;
- 	height:30px;
-}
-.table1
-{
-	border:1px;	
-	margin-left:2px;
-	margin-right:2px;
-	margin-top:10px; 
-	padding:0px;
-}
-.seperatorcolor
-{
-	background-color:#824406;
-}
+	( function () {
+		window.addEventListener( 'tizenhwkey', function( ev ) {
+			if( ev.keyName === "back" ) 
+			{
+				var page = document.getElementsByClassName( 'ui-page-active' )[0],
+					pageid = page ? page.id : "";
+				if( pageid === "main" ) 
+				{
+					try {
+							tizen.application.getCurrentApplication().exit();
+						} 
+						catch (ignore) 
+						{
+						}
+				} 
+				else 
+				{
+					try 
+					{	
+						//window.history.back();
+						tizen.application.getCurrentApplication().exit();
+					}							 
+					catch (ignore) 
+					{
+					}
+				}
+			}
+		} );
+	} () );
 
-</style>
- <script src="./js/jquery-1.10.2.min.js"></script> 
-<script language="javascript" type="text/javascript">	    
-    function getCurrentRates()
-    {   	
-    	$("#txtWait").show();
-        $.ajax({
-            type: "GET",
-            url: "https://api.coinmarketcap.com/v1/ticker/?limit=10",
-            dataType: "json",
-            success: function (data) {
-                debugger;
-                var myJsonObject = data;
-                contentType: "application/json";
-                $.each(myJsonObject, function(i, mobj){
-                	var flagGrowth="false";
-                    var cname = mobj.name;                    
-                    var csymbol = mobj.symbol; 
-		    		var cprice_usd = mobj.price_usd; 		    		
-		    		var c24hrchange=mobj.percent_change_24h + "%";
-		    		if(mobj.percent_change_24h >= 0)
-		    		{
-		    			c24hrchange="+" +c24hrchange
-		    			flagGrowth="true";
-		    		}
-		     //$("#curtab").append('<tr><td><font color="#ffff00" align="center">' + csymbol + '<br>' + cprice_usd + '</font></td><td><font color="#ffff00">' + c24hrchange + '%</font></td></tr>');
-                    $("#coinlist ul").append('<table width="100%" class="table1">'+ 
-                    		'<tr>' + 
-                    			'<td class="coinsymbol" width="90%">' + csymbol + '</td>' +
-                    			'<td align="right"  width="10%"><image src="icons/menu.png" class="alertIcon"></td>' +			
-                    		 '</tr>'+                    		 
-                    		'<tr>' + 
-                    			'<td class="priceincrease"  width="50%">' + "$" + cprice_usd+ '</td>' + 
-                    			'<td class="percentgrowth"  width="50%">' +  c24hrchange  + '&nbsp;&nbsp</td>' +
-                    		 '</tr>'+
-                    		 '<tr>' + 
-                    			'<td width="100%" colspan="2" class="seperatorcolor"></td>' +                     			
-                    		 '</tr>'+                    		                    		  
-                    		 '</table>');                      		                     		                
-                    });               
-                    
-                    //Add button
-                    $("#coinlist ul").append('<table width="100%">'+                     		
-                    		 '<tr>' + 
-                    			'<td colspan="2" align="center" margin-top="10px"><image src="icons/add_100px.png"></td>' +			
-                    		 '</tr>'+                    		  
-                    		 '</table>');       
-            },
-            complete:function(){
-            	$("#txtWait").hide();
-            },
-            error: function (xhr) {
-                alert(xhr.responseText);
-            }
-        });
-    
-	    function closeApp()
+	  function setEvents()
+	  {
+	 	 getCurrentRates();
+  	
+	  }
+	
+  
+      function closeApp()
 	    {
 	    	tizen.application.getCurrentApplication().exit();
 	    }
@@ -146,22 +72,76 @@ larger,  smaller
 	    {
 	    	window.location.href="IndexBasic.html";
 	    }
-    }
 </script>
-<body onload="getCurrentRates()">
-	<div class="ui-page ui-page" id="main">
-		<!-- <header class="ui-header">
-			<h2 class="ui-title">Coin Time</h2>
-		</header> -->
-		<div id="coinlist" class="ui-content">
-			<ul id="coinlistUL" class="ui-listview">				
+<body  onload="setEvents()">
+	<div id="tabsectionchangerPage" onclick="test()"  class="ui-page"  data-enable-page-scroll="false">
+	<link rel="stylesheet"  href="css/sectionchanger.css">
+		 <!-- <header class="ui-header">
+			 <h2 class="ui-title">CoinTime</h2> 
+		</header>
+		 -->
+		 
+		<div id="tabsectionchanger" class="ui-content">
+			<!-- section changer has only one child. -->
+			<div>	
+				<!-- Favorites -->
+				<section style="text-align:center">
+					 <header class="ui-header">
+							<h2 class="ui-title" >Favorites</h2>
+					</header>
+					<div class="ui-content">
+						 <div id="coinnews" class="ui-content">			 
+						And Alerts <br>Coming soon...
+						</div>			
+					</div>		
+				</section>
 				
-			</ul>
-		</div>			
+				<!-- Currency Rates -->
+				<section class="ui-section-active" style="text-align:center">
+					 <header class="ui-header">
+						<h2 class="ui-title" onclick="getCurrentRates()" >Refresh</h2>
+					</header>
+					<div class="ui-content">
+					 <div id="loadingProgress"> 
+					 	<table width="100%"  class="loading">
+					 		<tr><td id="loadtext">Updating...<td></tr>
+					 	</table>
+					 </div>				
+					 <div id="coinlist" class="ui-content">
+						<ul id="coinlistUL" class="ui-listview">								
+						</ul>
+						</div>			
+					 </div>				
+				</section>
+				
+				<!-- Compare Rates -->
+				<section style="text-align:center">
+					 <header class="ui-header">
+							<h2 class="ui-title" >Compare</h2>
+					</header>
+					<div class="ui-content">
+						 <div id="coinnews" class="ui-content">			 
+						Rates across <br>various exchanges<br>Coming soon...
+						</div>			
+					</div>		
+				</section>
+				<!-- BTC Conerter -->
+				<section style="text-align:center">
+					 <header class="ui-header">
+							<h2 class="ui-title" >Converter</h2>
+					</header>
+					<div class="ui-content">
+						 <div id="coinnews" class="ui-content">			 
+						Coming soon...
+						</div>			
+					</div>		
+				</section>
+				
+			</div>
+		</div>
+		<script src="tab.js"></script>
 	</div>
-	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
-	<script type="text/javascript" src="js/circle-helper.js"></script>
-	<script src="app.js"></script>
-	<script src="lowBatteryCheck.js"></script>
+<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+ 
 </body>
 </html>
