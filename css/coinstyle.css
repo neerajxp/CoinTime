@@ -1,0 +1,68 @@
+.priceincrease
+{
+	font-size:x-large;
+	color:green;
+	text-align:left;
+}
+.pricedrop
+{
+	font-size:x-large;
+	color:red;
+	text-align:left;
+}
+.cointitle
+{
+	font-size:large;
+	color:white;
+	text-align:left;
+}
+.coinsymbol
+{
+	text-align:left;
+	font-size:xx-large;
+}
+.percentgrowth
+{
+	font-size:x-large;	
+	text-align:right;
+	color:green;
+	margin-left:10px;
+}
+.percentdrop
+{
+	font-size:x-large;	
+	text-align:right;
+	color:red;
+	margin-left:10px;
+}
+.alertIcon
+{
+ 	width:35px;
+ 	height:35px;
+ 	margin-right:10px;
+}
+.removeIcon
+{
+ 	width:30px;
+ 	height:30px;
+}
+.table1
+{
+	border:1px;	
+	margin-left:2px;
+	margin-right:2px;
+	margin-top:10px; 
+	padding:0px;
+}
+.seperatorcolor
+{
+	background-color:#824406;
+}
+
+.loading
+{
+	color:red;
+	font-size:x-large;	
+	background-color:white;
+	text-align:center;
+}
